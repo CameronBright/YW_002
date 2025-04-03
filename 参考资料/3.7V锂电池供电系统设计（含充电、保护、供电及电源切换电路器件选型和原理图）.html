@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="zh-CN">
+ <head> 
+  <meta charset="utf-8"> 
+  <link rel="canonical" href="https://blog.csdn.net/qq_45597060/article/details/119293629"> 
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"> 
+  <meta name="renderer" content="webkit"> 
+  <meta name="force-rendering" content="webkit"> 
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+  <meta name="report" content="{&quot;pid&quot;: &quot;blog&quot;, &quot;spm&quot;:&quot;1001.2101&quot;}"> 
+  <meta name="referrer" content="always"> 
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <link rel="alternate" media="handheld" href="#"> 
+  <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848"> 
+  <meta name="applicable-device" content="pc"> 
+  <link href="https://g.csdnimg.cn/static/logo/favicon32.ico" rel="shortcut icon" type="image/x-icon"> 
+  <title>3.7V锂电池供电系统设计（含充电、保护、供电及电源切换电路器件选型和原理图）_电池供电电路-CSDN博客</title>  
+  <meta name="keywords" content="电池供电电路"> 
+  <meta name="csdn-baidu-search" content="{&quot;autorun&quot;:true,&quot;install&quot;:true,&quot;keyword&quot;:&quot;电池供电电路&quot;}"> 
+  <meta name="description" content="文章浏览阅读6.4w次，点赞171次，收藏1.1k次。锂电池供电系统一、锂电池锂离子电池的负极为石墨晶体，正极通常为二氧化锂。充电时锂离子由正极向负极运动而嵌入石墨层中。放电时，锂离子从石墨晶体内负极表面脱离移向正极。所以，在该电池充放电过程中锂总是以锂离子形态出现，而不是以金属锂的形态出现。因而这种电池叫做锂离子电池，简称锂电池。二次锂电池具有高能量密度、无记忆效应、重量轻、无污染、循环寿命长、自放电小等优点。聚合物锂电池具有以下优点：无电池漏液问题,其电池内部不含液态电解液,使用胶态的固体；可制成薄型电池：3.6V400mAh的容量，其厚度可薄至0_电池供电电路"> 
+  <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/css/detail_enter-850e130245.min.css">  
+  <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-sea/skin-sea-d3a08c2048.min.css">    
+  <meta name="toolbar" content="{&quot;type&quot;:&quot;0&quot;,&quot;fixModel&quot;:&quot;1&quot;}">    
+  <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css"> 
+  <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>    
+ 	<style>
+	main div.blog-content-box pre {
+		max-height: 100%;
+		overflow-y: hidden;
+	}
+	</style>
+ </head>  
+ <body class="nodata  " style=""> 
+  <div id="toolbarBox" style="min-height: 48px;"></div>    
+  <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/pc/css/blog_code-01256533b5.min.css"> 
+  <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/chart-3456820cac.css"> 
+  <link rel="stylesheet" href="https://g.csdnimg.cn/lib/swiper/6.0.4/css/swiper.css">   
+  <div class="main_father clearfix d-flex justify-content-center mainfather-concision" style="height:100%;"> 
+   <div class="container clearfix container-concision" id="mainBox">  
+    <main>  
+     <div class="blog-content-box"> 
+      <div class="article-header-box"> 
+       <div class="article-header"> 
+        <div class="article-title-box"> 
+         <h1 class="title-article" id="articleContentId">3.7V锂电池供电系统设计（含充电、保护、供电及电源切换电路器件选型和原理图）</h1> 
+        </div> 
+        <div class="article-info-box"> 
+         <div class="up-time">
+          最新推荐文章于&nbsp;2024-08-07 11:35:43&nbsp;发布
+         </div> 
+         <div class="article-bar-top"> 
+          <img class="article-type-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/original.png" alt=""> 
+          <div class="bar-content"> 
+           <a href="https://mall.csdn.net/vip" data-report-query="spm=3001.10404" data-report-click="{&quot;spm&quot;:&quot;3001.10404&quot;}" data-report-view="{&quot;spm&quot;:&quot;3001.10404&quot;}" class="article-vip-box" target="_blank"><img class="article-vip-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/identityVipNew.png" alt=""></a> 
+           <a class="follow-nickName " href="https://blog.csdn.net/qq_45597060" target="_blank" rel="noopener" title="qq_45597060">qq_45597060</a> 
+           <img class="article-time-img article-heard-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCurrentTime2.png" alt=""> 
+           <span class="time blog-postTime" data-time="2021-08-30 22:40:19">最新推荐文章于&nbsp;2024-08-07 11:35:43&nbsp;发布</span> 
+           <div class="read-count-box"> 
+            <img class="article-read-img article-heard-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/articleReadEyes2.png" alt=""> 
+            <span class="read-count">阅读量6.4w</span> 
+            <a id="blog_detail_zk_collection" class="un-collection" data-report-click="{&quot;mod&quot;:&quot;popu_823&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4232&quot;,&quot;ab&quot;:&quot;new&quot;}"> <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect2.png" alt=""> <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive2.png" alt=""> <span class="name">收藏</span> <span class="get-collection"> 1.1k </span> </a> 
+            <div class="read-count-box is-like"> 
+             <img class="article-read-img article-heard-img" style="display:none" id="is-like-imgactive-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Active.png" alt=""> 
+             <img class="article-read-img article-heard-img" style="display:block" id="is-like-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Black.png" alt=""> 
+             <span class="read-count" id="blog-digg-num">点赞数 171 </span> 
+            </div> 
+           </div> 
+          </div> 
+         </div> 
+         <div class="blog-tags-box"> 
+          <div class="tags-box artic-tag-box"> 
+           <span class="label">文章标签：</span> 
+           <a rel="noopener" data-report-query="spm=1001.2101.3001.4223" data-report-click="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;嵌入式&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;嵌入式\&quot;}&quot;}" data-report-view="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;嵌入式&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;嵌入式\&quot;}&quot;}" class="tag-link" href="https://so.csdn.net/so/search/s.do?q=%E5%B5%8C%E5%85%A5%E5%BC%8F&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=&amp;from_tracking_code=tag_word&amp;from_code=app_blog_art" target="_blank">嵌入式</a> 
+           <a rel="noopener" data-report-query="spm=1001.2101.3001.4223" data-report-click="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;单片机&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;单片机\&quot;}&quot;}" data-report-view="{&quot;mod&quot;:&quot;popu_626&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4223&quot;,&quot;strategy&quot;:&quot;单片机&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;extra&quot;:&quot;{\&quot;searchword\&quot;:\&quot;单片机\&quot;}&quot;}" class="tag-link" href="https://so.csdn.net/so/search/s.do?q=%E5%8D%95%E7%89%87%E6%9C%BA&amp;t=all&amp;o=vip&amp;s=&amp;l=&amp;f=&amp;viparticle=&amp;from_tracking_code=tag_word&amp;from_code=app_blog_art" target="_blank">单片机</a> 
+          </div> 
+         </div> 
+         <div class="slide-content-box"> 
+          <div class="article-copyright"> 
+           <div class="creativecommons">
+             版权声明：本文为博主原创文章，遵循
+            <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。 
+           </div> 
+           <div class="article-source-link">
+             本文链接：
+            <a href="https://blog.csdn.net/qq_45597060/article/details/119293629" target="_blank">https://blog.csdn.net/qq_45597060/article/details/119293629</a> 
+           </div> 
+          </div> 
+         </div> 
+         <div class="operating"> 
+          <a class="href-article-edit slide-toggle">版权</a> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div id="blogHuaweiyunAdvert"></div> 
+      <article class="baidu_pl"> 
+       <div id="article_content" class="article_content clearfix"> 
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css"> 
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-704d5b9767.css"> 
+        <div id="content_views" class="markdown_views prism-atom-one-dark"> 
+         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;"> 
+          <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path> 
+         </svg> 
+         <h2><a id="_0"></a>锂电池供电系统</h2> 
+         <h4><a id="_1"></a>一、锂电池</h4> 
+         <p>  锂离子电池的负极为石墨晶体，正极通常为二氧化锂。充电时锂离子由正极向负极运动而嵌入石墨层中。放电时，锂离子从石墨晶体内负极表面脱离移向正极。所以，在该电池充放电过程中锂总是以锂离子形态出现，而不是以金属锂的形态出现。因而这种电池叫做锂离子电池，简称锂电池。<br>   二次锂电池具有高能量密度、无记忆效应、重量轻、无污染、循环寿命长、自放电小等优点。<br>   聚合物锂电池具有以下优点：无电池漏液问题,其电池内部不含液态电解液,使用胶态的固体；可制成薄型电池：3.6V400mAh的容量，其厚度可薄至0.5mm；电池可设计成多种形状；电池可弯曲变形：高分子电池最大可弯曲900左右；可制成单颗高电压：液态电解质的电池仅能以数颗电池串联得到高电压，高分子电池由于本身无液体，可在单颗内做成多层组合来达到高电压；容量将比同样大小的锂离子电池高出一倍。<br>   锂离子电池的额定电压为3.6V(有的产品为3.7V)，。充满电时的终止充电电压与电池阳极材料有关：阳极材料为石墨的4.2V;阳极材料为焦炭的4.1V。不同阳极材料的内阻也不同，焦炭阳极的内阻略大，其放电曲线也略有差别，如图1所示。一般称为4.1V锂离子电池及4.2V锂离子电池。现在使用的大部分是4.2V的，锂离子电池的终止放电电压为 2.5V～2.75V(电池厂给出工作电压范围或给出终止放电电压，各参数略有不同)。<strong>锂电池标注中，3.7V指电池使用过程中放电的平台电压，而4.2伏指的是充电满电时的电压。</strong><br>   <strong>锂电池需充足电后保存。在20℃下可储存半年以上，锂电池适宜在低温下保存。</strong><br>   在锂电池供电系统中，需要三个电路：<strong>①锂电池充电电路</strong>，锂电池的充电要求较高，需要采用专用的恒压恒流充电器进行充电；<strong>②锂电池保护电路</strong>，保护电路为锂电池提供过充电、过放电、短路过流、过温保护；<strong>③锂电池输出电路</strong>，3.7V锂电池充满电后为4.2V，放电平台电压为3.7V，对于嵌入式系统或其他负载电路来说，需要将3.7V电压升降压为5V、3.3V等电压才能使用。</p> 
+         <p>锂电池基础问题：<a href="https://blog.csdn.net/dddxxxx/article/details/55104433">https://blog.csdn.net/dddxxxx/article/details/55104433</a><br> 锂电池应用电路：<a href="https://blog.csdn.net/kuakewei123/article/details/110270332">https://blog.csdn.net/kuakewei123/article/details/110270332</a></p> 
+         <h4><a id="_12"></a>二、锂电池充放电</h4> 
+         <h5><a id="1_13"></a>1、锂电池充放电要求</h5> 
+         <p>  <strong>(1)、锂电池的充电：锂电池的充电要求较高，需要采用专用的恒压恒流充电器进行充电，通常恒流充电至4.2V/节后转入恒压充电，当恒压充电电流降至100mA以内时，应停止充电。</strong><br>   锂电池过充电：根据锂电池的结构特性，最高充电终止电压为4.2V。在电池充满电后在继续充电，会导致电池的过充电。由于在设计时，锂电池负极容量要比正极容量高，过充电会导致正极的锂离子被消耗太多，损耗电池进而使电池报废。<br>   充电电流（mA）=0.1～1.5倍电池容量（如1000mAh的电池，其充电电流可控制在100~1500mA之间）。<strong>充电电流在0.2C-0.8C之间比较适宜，常规充电电流可选择在0.5倍电池容量左右，充电时间约为2～3小时。</strong><br>   (2)、锂电池的放电：因锂电池的内部结构所致，放电时锂离子不能全部移向正极，必须保留一部分锂离子在负极，以保证在下次充电时锂离子能够畅通地嵌入通道。否则，电池寿命就相应缩短。为了保证石墨层中放电后留有部分锂离子，就要严格限制放电终止最低电压，也就是说锂电池不能过放电。<br>   放电终止电压通常为 3.0V/节，最低不能低于2.5V/节。一般根据放电电流来确定放电截止电压。0.2C-2C放电一般设定1.0V/支,3C 以上如5C或10C放电设定为0.8V/支。电池放电时间长短与电池容量、放电电流大小有关。电池放电时间（小时）=电池容量/放电电流。锂电池放电电流 (mA)不应超过电池容量的3倍。（如1000mAH电池，则放电电流应严格控制在3A以内）否则会使电池损坏。</p> 
+         <h5><a id="2_19"></a>2、锂电池充电过程</h5> 
+         <p>  <strong>锂离子电池的充电过程可以分为四个阶段：涓流充电（低压预充）、恒流充电、恒压充电以及充电终止。</strong><br>   锂电池的充电方式是限压恒流，都是由IC芯片控制的，典型的充电方式是：先检测待充电电池的电压，如果电压低于3V，要先进行预充电，充电电流为设定电流的1/10，电压升到3V后，进入标准充电过程。标准充电过程为：以设定电流进行恒流充电，电池电压升到4.20V时，改为恒压充电，保持充电电压为 4.20V。此时，充电电流逐渐下降，当电流下降至设定充电电流的1/10时，充电结束。下图为充电曲线。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/85d37359822319dfd7579c381dca32e7.png" alt="在这里插入图片描述" width="500" height="600"><br> (1)、涓流充电阶段（在电池过渡放电，电压偏低的状态下）<br>   3.0V以下。锂电池内部的介质会发生一些物理变化，致使充电特性变坏，容量降低等。在这个阶段，只能通过涓涓细流缓慢的对锂电池充电，使锂电池内部的电介质慢慢的恢复到正常状态。<br>   涓流充电用来先对完全放电的电池单元进行预充(恢复性充电)。在电池电压低于3V左右时采用涓流充电，涓流充电电流是恒流充电电流的十分之一即0.1c(以恒定充电电流为1A举例，则涓流充电电流为100mA)。<br> (2)、恒流充电阶段（电池从过放状态恢复到了正常状态）<br>   当电池电压上升到涓流充电阈值以上时，提高充电电流进行恒流充电。恒流充电的电流在0.2C至 1.0C之间。电池电压随着恒流充电过程逐步升高,一般单节电池设定的此电压为3.0-4.2V。<br> (3)、恒压充电阶段（已经充满85%以上，在慢慢的进行补充）<br>   当电池电压上升到4.2V时，恒流充电结束，开始恒压充电阶段。电流根据电芯的饱和程度，随着充电过程的继续充电电流由最大值慢慢减少，当减小到0.01C时，认为充电终止。（C是以电池标称容量对照电流的一种表示方法，如电池是1000mAh的容量，1C就是充电电流1000mA）。<br> (4)、充电终止：有两种典型的充电终止方法，采用最小充电电流判断或采用定时器(或者两者的结合)。最小电流法监视恒压 充电阶段的充电电流，并在充电电流减小到0.02C至0.07C范围时终止充电。第二种方法从恒压充电阶段开始时计时，持续充电两个小时后终止充电过程。</p> 
+         <p>  上述四阶段的充电法完成对完全放电电池的充电约需要2.5至3小时。高级充电器还采用了更多安全措施。例如如果电池温度超出指定窗口(通常为0℃至45℃)，那么充电会暂停。</p> 
+         <p>  <strong>充电结束后,如检测到电池电压低于充电IC的再充电门限电压将重新充电。</strong></p> 
+         <h5><a id="3_36"></a>3、锂电池充电方案</h5> 
+         <p>  锂电池的充电要求较高，需要采用专用的恒压恒流充电器进行充电，充电电流在0.2C-0.8C之间比较适宜，下面介绍采用TP4056充电IC的锂电池充电方案。<br>   TP4056是一款完整的单节锂离子电池采用恒定电流/恒定电压线性充电器。其底部带有散热片的SOP8封装与较少的外部元件数目使得TP4056成为便携式应用的理想选择。TP4056可以适合USB电源和适配器电源工作。由于采用了内部PMOSFET架构，加上防倒充电路，所以不需要外部隔离二极管。热反馈可对充电电流进行自动调节，以便在大功率操作或高环境温度条件下对芯片温度加以限制。充电电压固定于4.2V，而充电电流可通过一个电阻器进行外部设置。当充电电流在达到最终浮充电压之后降至设定值1/10时，TP4056将自动终止充电循环。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/0649ba249ff96c0d0abe8929b38d9e09.png" alt="在这里插入图片描述"><br> 在TP4056充电电路中RPROG电阻的计算：<br> 这个电阻决定了最大充电电流的大小，充电电流I=1200/RPROG，这里选择RPROG为1.2k，最大充电电流为1A。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/2b0f8d5f87997232e616b0e359c19306.jpeg" alt="在这里插入图片描述" width="400" height="400"><br> VCC电阻的选择：<br>   此电阻的作用：增加热调节电流；降低内部MOSFET两端的压降能够显著减少IC中的功耗。在热调节期间，这具有增加输送至电池的电流的作用。对策之一是通过一个外部元件（例如一个电阻器或二极管）将一部分功率耗散掉。<br>   充电器在工作的时候会发热，在发热的情况下，比如规定最大充电电流为1A，实际上发热以后充电电流达不到1A，越热输出电流越小，为了解决这个问题，官方给出一个对策就是连接一个电阻，将一部分功率耗散掉。<br>   让这个电阻承担一部分热量，减小芯片发热，来增加锂电池充电电流。<br> 计算公式：<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/7ad9dfdd7111a416ad5617987fbae6fd.png" alt="在这里插入图片描述" width="400" height="400"><br> 这里选择0.25欧姆，封装为1206，功率可以达到0.25W。假设0.25欧姆电阻上通过的电流是1A，功率为0.25W。实际上充电电流连948mA也达不到，因此功率达不到0.25W。</p> 
+         <p><strong>TP4056X充电IC相较于TP4056增加了电池正负极反接保护、输入电源正负极反接保护和短路保护，采用底部带有散热器的ESOP/EMSOP封装。当充电完成后，若BAT引脚电压4.12V的再充电门限电压以下，继续下一个充电循环。</strong></p> 
+         <p>TP4056X锂电池充电电路：<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/909d2722ac55acd699d1222e6464d1a0.png" alt="在这里插入图片描述" width="600" height="330"><br> 锂电池充放电原理：<a href="https://blog.csdn.net/nolatin/article/details/7054769">https://blog.csdn.net/nolatin/article/details/7054769</a><br> 锂电池充电方案：<a href="https://blog.csdn.net/qq_36098477/article/details/105476631">https://blog.csdn.net/qq_36098477/article/details/105476631</a><br> TP4056电路设计：<a href="https://blog.csdn.net/weixin_30760895/article/details/96729692">https://blog.csdn.net/weixin_30760895/article/details/96729692</a><br> 锂电池充电过程详解：<a href="https://blog.csdn.net/enfang1120/article/details/89521245">https://blog.csdn.net/enfang1120/article/details/89521245</a></p> 
+         <h4><a id="_60"></a>三、锂电池保护</h4> 
+         <p>  锂电池在使用过程中严禁过充电、过放电和短路故障，否则将会引起电池寿命缩短或起火、爆炸等事故，因此可充型锂电池都会连接一块充放电保护电路板（常简称保护板）来保护锂电池的安全。<br>   保护电路由控制IC、MOSFET开关管、熔断保险丝、电阻、电容等元件组成。控制IC输出控制信号控制MOSFET开关管导通，使锂电池与外部电路连接，当锂电池电压或回路电流超过规定值时，控制IC控制MOSFET开关管关断，断开锂电池和外部电路的连接，保护锂电池。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/2ee16823496955990e54e875612485e7.jpeg" alt="在这里插入图片描述" width="400" height="250"><br>   控制IC内置高精度电压检测电路和多级电流检测电路。其中，电压检测电路一是对充电电压进行检测，一旦达到其设定阈值（通常为3.9V～4.4V），立即进入过充电保护状态；二是对放电电压进行检测，一旦达到其设定阈值（通常为2.0V～3.0V ），立即进入过放电保护状态。<br> 单节锂电池保护电路<br>   保护电路的控制芯片为DW01（或312F） ， MOS开关管为8205A，如图6所示，B＋、B-分别是接电芯的正、负极；P＋、P -分别是保护板输出的正、负极； T为温度电阻（NTC）端口，一般需要与用电器的CPU配合才能进行保护控制。 <br>   DW01或312F是一款锂电池保护芯片，内置有高精确度的电压检测与时间延迟电路，主要参数如下：过充检测电压为4.3V，过充释放电压为4.05V；过放检测电压为2.5V，过放释放电压为3.0V ；过流检测电压为5V，短路电流检测电压为1.0V；DW01允许电池输出的最大电流是3.3A。<br>   8205A内含两只N沟道场效应管，当G极电压高于1V时，场效应管导通，D、S间的导通电阻很小（数十毫欧姆），相当于开关闭合；当基极电压低于0.7V时，开关管截止，D、S极间的导通内阻很大（几兆欧姆），相当于开关断开。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/ca616146a9653e12b4cc2fc977405c1b.jpeg" alt="在这里插入图片描述" width="600" height="300"><br> 锂电池保护电路工作原理<br> (1)正常工作：DW01和8205A所组成的保护电路如上图所示，8205A中的Q1为过放电保护管，Q2为过充电保护管。当电芯电压在2.5V～4.3V之间时，DW01的OD、OC脚均输出高电平（等于供电电压），CSI脚电压为0V。此时8205A内的两只N沟道场效应管Q1、Q2均处于导通状态，由于8205A的导通电阻很小，相当于D、S极间直通，此时锂电池的负极与保护电路的P-端相当于直接连通，保护电路有电压输出，电流回路为：B+→P+→外部电路→P-→Q2→Q1→B-。<br> (2)过放电保护：锂电池两端的电压随放电而渐渐降低，同时DW01内部通过电阻R1实时监测锂电池电压，当锂电池电压下降到2.3V（通常称为过放保护电压）时，DW01认为锂电池已处于过放电状态，其OD脚电压变为0， 8205A内Q1截止，此时锂电池的B-与P-之间处于断开状态，即锂电池的放电回路被切断，停止放电。<br>   进入过放电保护状态后，锂电池电压会上升，若能上升到IC的门限电压（一般为3.1V，通常称为过放保护恢复电压），DW01的OD脚恢复输出高电平，8205A内的Q1再次导通。<br> (3)电池充电：无论保护电路是否进入过放电状态，只要给保护电路的P＋与P-端间加上充电电压，DW01经B-端检测到充电电压后，便立即从OC脚输出高电平，8205A内的Q2导通，即锂电池的B-保护电路的P-通，充电器对锂电池充电，电流回路为：P+→B+→B-→Q1（无论OD脚是不是高电平，由于反向二极管的存在，充电回路中Q1均可导通）→Q2→P-。<br> (4)过充电保护：当锂电池电压升高到4.4V（通常称为过充保护电压）时，DW01将判断电芯已处于过充电状态，便立即使OC脚电压降为0V， 8205A内的Q2截止，此时锂电池的B-极与保护电路的P-端之间处于断开状态并保持，即锂电池的充电回路被切断，停止充电。<br>    当保护电路的P＋与P-端接上放电负载后，虽然Q2截止，但其内部的二极管正方向与放电回路的电流方向相同，所以仍可对负载放电。当锂电池两端电压低于4.3V（通常称为过充保护恢复电压）时，DW01将退出过充电保护状态，OC脚重新输出高电平，Q2导通，即锂电池的B-端与保护电路P-端又重新接上，锂电池又能进行正常的充放电。<br> (5)过流、短路保护： 由于开关管饱和导通时也存在内阻，所以有电流流过时开关管的D、S极间就会产生压降，保护控制IC会实时检测开关管D、S极的电压，当电压升到IC保护门限值（一般为0.15V，称为放电过流检测电压）时，其放电保护执行端OD马上输出低电平，Q1关断，放电回路被断开。<br>   DW01通过接在V-端和VSS端之间的电阻R2实时检测开关管上的压降。当负载电流增大时，Q1或Q2上的压降也必然增大，当该压降达到0.2V时，DW01便判断负载电流到达了极限值，于是其OD脚电压降为0V， 8205A内部的放电控制管Q1关闭，切断锂电池的放电回路，实现过电流保护。<br> (6)过温保护：保护板上的T端口为过温保护端，与用电器的CPU相连。常见的过温保护电路较简单，就是在T端与P-端接一只NTC电阻（见图中的R4），该电阻紧贴锂电池安装。当用电器长时间处于大功率工作状态时，锂电池温度会上升，则NTC阻值会逐渐下降，用电器的CPU对NTC阻值进行检测，当阻值下降到CPU设定阈值时，CPU立即发出关机指令，让电池停止对其供电，只维持很小的待机电流，从而达到保护电池的目的。</p> 
+         <p><strong>FS312F保护IC相较于DW01来说，过充检测电压为4.25V，过充释放电压为4.15V；过放检测电压为2.9V，过放释放电压为3.0V；过放检测电压较高一些，可以防止锂电池过放更深。</strong><br> 对于DW06保护IC，已经内部集成了功率MOS，无需外接8205A开关管，其他参数与DW01一致。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/724c79a1b5a4501648ecfd359a82e7b5.jpeg" alt="在这里插入图片描述" width="500" height="280"><br> FS312f和8205A锂电池保护电路：<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/b2a91c1247b458415ea90ac5eb682dec.png" alt="在这里插入图片描述" width="600" height="300"><br> 锂电池充放电保护电路工作原理<a href="https://blog.csdn.net/u010783226/article/details/79267282">https://blog.csdn.net/u010783226/article/details/79267282</a><br> 锂电池保护电路详解：<a href="https://blog.csdn.net/weixin_29705519/article/details/112542192">https://blog.csdn.net/weixin_29705519/article/details/112542192</a></p> 
+         <h4><a id="_89"></a>四、锂电池供电方案</h4> 
+         <p>  3.7V锂电池充满电后为4.2V，放电平台电压为3.7V，对于嵌入式系统或其他负载电路来说，需要将3.7V电压升降压为5V、3.3V等电压才能使用，因此需要设计一定的升降压电路来将锂电池输出电压稳定在5V、3.3V。<br>   3.7V锂电池充满电后为4.2V，放电平台电压为3.7V，锂电池放电至80%时电池电压为3.7V，放电至90%时为3.5V，对于带有锂电池保护板的锂电池来说，其放电最低电压为3V，则锂电池的输出电压范围为3~4.2V。<br>   对于3.3V供电系统，由于锂电池放电至90%时仍然有3.5V的输出电压，选用一个低压差的LDO即可满足要求；如果想要压榨锂电池容量极限，则可以选择升降压芯片，将3~4.2V电压转化为3.3V电压，但升降压芯片价格较贵且不宜选择。<br>   对于5V及以下电压供电系统，需要将锂电池电压先升高至5V，再将5V电压经过LDO或DCDC降压芯片转化至3.3V。</p> 
+         <h5><a id="137V5V_94"></a>(1)3.7V升5V锂电池升压方案：</h5> 
+         <p>  PW5300是电流模式升压DC-DC转换器。其内置0.2Ω功率MOSFET的PWM电路使该稳压器具有效率高的功率效率。内部补偿网络还可以程度地减少了6个外部元件的数量。误差放大器的同相输入连接到0.6V精密基准电压，内部软启动功能可以减低浪涌电流，PW5300采用SOT23-6L封装，为应用提供节省空间的PCB。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/8605a5b894800abc5af6305e17b950a3.jpeg" alt="在这里插入图片描述" width="500" height="500"><br> <img src="https://i-blog.csdnimg.cn/blog_migrate/fa220e5df9aa27ce5f1aaf074085472a.png" alt="在这里插入图片描述" width="600" height="280"></p> 
+         <h5><a id="233VDCDC_98"></a>(2)3.3V降压DCDC方案：</h5> 
+         <p>  PW2057,输出电压固定3.3V，最大输出电流0.7A，可以节省了2个调压电阻。同步整流效率高。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/cc255fe43d5286f1ffba1d96d48b153b.jpeg" alt="在这里插入图片描述" width="500" height="250"><br> <img src="https://i-blog.csdnimg.cn/blog_migrate/c595ca43c4ce7196a40ebdea0d76dadf.png" alt="在这里插入图片描述" width="600" height="280"><br> 3.7V转3V方案：<a href="https://blog.csdn.net/kuakewei123/article/details/109690493">https://blog.csdn.net/kuakewei123/article/details/109690493</a><br> 锂电池供电方案：<a href="https://blog.csdn.net/kuakewei123/article/details/109690515">https://blog.csdn.net/kuakewei123/article/details/109690515</a><br> 锂电池电压与电量关系：<a href="https://blog.csdn.net/gezhiwu1213/article/details/46858801?utm_medium=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-10.control&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromMachineLearnPai2~default-10.control">https://blog.csdn.net/gezhiwu1213/article/details/46858801</a><br> 锂电池3.7V升压5V方案：<a href="https://blog.csdn.net/qq_15079039/article/details/118353412">https://blog.csdn.net/qq_15079039/article/details/118353412</a><br> 锂电池3.7V升压5V方案：<a href="https://blog.csdn.net/quke1/article/details/115460724">https://blog.csdn.net/quke1/article/details/115460724</a><br> 锂电池升压到5V1A，PW5300设计布局：<a href="https://blog.csdn.net/quke1/article/details/118964329">https://blog.csdn.net/quke1/article/details/118964329</a></p> 
+         <h4><a id="_109"></a>五、电源切换电路</h4> 
+         <p>  在锂电池和USB电源供电系统中，在没有USB外接电源时，整个系统使用锂电池供电，当存在USB外接电源时，系统供电切换至外接电源，需要在锂电池和USB电源之间加入一个电源切换电路。<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/48046e2c545bafc99c3961d156c85afe.png" alt="在这里插入图片描述" width="400" height="250"><br>   在上图中，使用低导通内阻的PMOS管做电源切换开关。<br>   未接入VUSB，采用锂电池供电时，PMOS管的G极通过电阻下拉至GND，锂电池VBAT（3.7V-4.2V）通过PMOS管的反向二极管到达PMOS管的S极，VS&gt;VG，VGS&lt;0，PMOS管导通，导通之后，寄生二极管短路，不在起作用，此时VCC输出VBAT（3.7V~4.2V）电压。<br>   接入VUSB电源后，PMOS管G极电压未VUSB=5V，S极电压为VCC=VUSB-VD1=5V-0.7V=4.3V，VG&gt;VS，VGS&gt;0，PMOS管关断，VCC输出电压为4.3V（5-0.7）。由于PMOS管关断，不论接不接电池，电池与负载电路断开，由USB电源供电。<br>   在上述电源切换电路中，在USB供电时，VCC输出电压为4.3V（VUSB-VD1=5V-0.7V=4.3V），硅二极管存在0.7V的压降，会造成不必要的电压损耗，最好使用肖特基二极管，如SS12、SS14、SS34等。但如果没有二极管D1的话，PMOS管的G极和S极连接在一起，导致电路无法正常工作。</p> 
+         <p>锂电池外接电源切换电路：<a href="https://strongerhuang.blog.csdn.net/article/details/104832112" rel="nofollow">https://strongerhuang.blog.csdn.net/article/details/104832112</a><br> 锂电池外接电源切换电路仿真：<a href="https://blog.csdn.net/jwdeng1995/article/details/111403131">https://blog.csdn.net/jwdeng1995/article/details/111403131</a><br> 锂电池外接电源切换电路和软开关电路：<a href="https://blog.csdn.net/weixin_34221276/article/details/85711981">https://blog.csdn.net/weixin_34221276/article/details/85711981</a><br> USB和锂电池供电电路设计：<a href="https://blog.csdn.net/qq_43521534/article/details/104184764">https://blog.csdn.net/qq_43521534/article/details/104184764</a></p> 
+         <h4><a id="_122"></a>六、硬件开关机电路</h4> 
+         <p>  一般来说，为了实现对系统的硬件电源切断，会使用直接的机械开关进行控制电源的通断。但是由于机械开关存在着体积较大（不利于小型化设计），且由于磨损导致寿命较短等缺点，按键开关越来越多的被使用，下面介绍一种比较简单的实现电路：<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/e2054506b53134f1ede2bf0f3cfeb0a1.png" alt="在这里插入图片描述" width="400" height="200"><br> 关机状态：由于Q1被R1钳位到高电平，Q1截止，VCC不能向后级供电<br> 开机：长按S2，D2导通，使Q1的G极拉低而导通，VCC通过Q1向后级VCC-SYS供电;VCC-SYS连接MCU电源，MCU通电复位后开始工作，通过控制连接到MCU上面I/O的Power-On，使其为高电平，此时Q2导通，使Q1的G极变为低电平，松开按键S2，只要Power-On引脚电平保持为高电平，系统供电正常供电;<br> 关机流程：开机状态下，长按下S2，MCU通过D1，检测到低电平，累计一定时间后，判定为关机动作，将Power-ON引脚输出低电平，Q1截止，系统断电;</p> 
+         <p>电源切换电路及硬件开关电路：<br> <img src="https://i-blog.csdnimg.cn/blog_migrate/3ff7f0b20e787b66ae15dca27be18a10.png" alt="在这里插入图片描述" width="600" height="450"><br> USB和锂电池供电电路设计：<a href="https://blog.csdn.net/weixin_30512043/article/details/96368144">https://blog.csdn.net/weixin_30512043/article/details/96368144</a></p> 
+         <h4><a id="_133"></a>七、移动电源方案</h4> 
+         <p>  对于锂电池供电系统来说，需要设计三种电路：充电、保护、供电电路，电路设计比较复杂，体积较大。对于一些移动电源IC来说，集成了锂电池充电、保护和同步升压电路，可输出5V电源，使用起来较为方便，如TP5400、TP5410、IP5306等。利用这些移动电源IC，可直接实现锂电池5V供电系统设计。</p> 
+         <p>锂电池供电电路：<a href="https://blog.csdn.net/weixin_39471542/article/details/103715759">https://blog.csdn.net/weixin_39471542/article/details/103715759</a></p> 
+        </div> 
+        <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-a5d25dd831.css" rel="stylesheet"> 
+        <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-e504d6a974.css" rel="stylesheet"> 
+       </div> 
+      </article>  
+     </div> 
+     <div class="directory-boxshadow-dialog" style="display:none;"> 
+      <div class="directory-boxshadow-dialog-box"> 
+      </div> 
+      <div class="vip-limited-time-offer-box-new" id="vip-limited-time-offer-box-new"> 
+       <img class="limited-img limited-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-newWhite.png"> 
+       <div class="vip-limited-time-top">
+         确定要放弃本次机会？ 
+       </div> 
+       <span class="vip-limited-time-text">福利倒计时</span> 
+       <div class="limited-time-box-new"> 
+        <span class="time-hour"></span> 
+        <i>:</i> 
+        <span class="time-minite"></span> 
+        <i>:</i> 
+        <span class="time-second"></span> 
+       </div> 
+       <div class="limited-time-vip-box"> 
+        <p> <img class="coupon-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-roup.png"> <span class="def">立减 ¥</span> <span class="active limited-num"></span> </p> 
+        <span class="">普通VIP年卡可用</span> 
+       </div> 
+       <a class="limited-time-btn-new" href="https://mall.csdn.net/vip" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.9621&quot;}" data-report-query="spm=1001.2101.3001.9621">立即使用</a> 
+      </div> 
+     </div> 
+     <div class="more-toolbox-new more-toolbar" id="toolBarBox"> 
+      <div class="left-toolbox"> 
+       <div class="toolbox-left"> 
+        <div class="profile-box"> 
+         <a class="profile-href" target="_blank" href="https://blog.csdn.net/qq_45597060"><img class="profile-img" src="https://profile-avatar.csdnimg.cn/637027fa08fc4a9bae6546b0a70a1ee5_qq_45597060.jpg!1"> <span class="profile-name"> qq_45597060 </span> </a> 
+        </div> 
+        <div class="profile-attend"> 
+         <a class="tool-attend tool-bt-button tool-bt-attend" href="javascript:;" data-report-view="{&quot;mod&quot;:&quot;1592215036_002&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4232&quot;,&quot;extend1&quot;:&quot;关注&quot;}">关注</a> 
+         <a class="tool-item-follow active-animation" style="display:none;">关注</a> 
+        </div> 
+       </div> 
+       <div class="toolbox-middle"> 
+        <ul class="toolbox-list"> 
+         <li class="tool-item tool-item-size tool-active is-like" id="is-like"> <a class="tool-item-href"> <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarThumbUpactive.png" alt=""> <img class="isactive" style="display:none" id="is-like-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/like-active.png" alt=""> <img class="isdefault" style="display:block" id="is-like-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/like.png" alt=""> <span id="spanCount" class="count "> 171 </span> </a> 
+          <div class="tool-hover-tip">
+           <span class="text space">点赞</span>
+          </div> </li> 
+         <li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike"> <a class="tool-item-href"> <img class="isactive" style="margin-right:0px;display:none" id="is-unlike-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/unlike-active.png" alt=""> <img class="isdefault" style="margin-right:0px;display:block" id="is-unlike-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/unlike.png" alt=""> <span id="unlikeCount" class="count "></span> </a> 
+          <div class="tool-hover-tip">
+           <span class="text space">踩</span>
+          </div> </li> 
+         <li class="tool-item tool-item-size tool-active is-collection "> <a class="tool-item-href" href="javascript:;" data-report-click="{&quot;mod&quot;:&quot;popu_824&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4130&quot;,&quot;ab&quot;:&quot;new&quot;}"> <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/collect-active.png" alt=""> <img class="isdefault" id="is-collection-img" style="display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/collect.png" alt=""> <img class="isactive" id="is-collection-imgactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCollectActive.png" alt=""> <span class="count get-collection " data-num="1105" id="get-collection"> 1105 </span> </a> 
+          <div class="tool-hover-tip collect"> 
+           <div class="collect-operate-box"> 
+            <span class="collect-text" id="is-collection"> 收藏 </span> 
+           </div> 
+          </div> 
+          <div class="tool-active-list"> 
+           <div class="text">
+             觉得还不错? 
+            <span class="collect-text" id="tool-active-list-collection"> 一键收藏 </span> 
+            <img id="tool-active-list-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/collectionCloseWhite.png" alt=""> 
+           </div> 
+          </div> </li> 
+         <li class="tool-item tool-item-size tool-active tool-item-comment"> 
+          <div class="guide-rr-first"> 
+           <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward01.png" alt=""> 
+           <button class="btn-guide-known">知道了</button> 
+          </div> <a class="tool-item-href go-side-comment" data-report-click="{&quot;spm&quot;:&quot;1001.2101.3001.7009&quot;}"> <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/comment.png" alt=""> <span class="count"> 5 </span> </a> 
+          <div class="tool-hover-tip">
+           <span class="text space">评论</span>
+          </div> </li> 
+         <li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share"> <a class="tool-item-href" href="javascript:;" data-report-view="{&quot;spm&quot;:&quot;3001.4129&quot;,&quot;extra&quot;:{&quot;type&quot;:&quot;blogdetail&quot;}}"> <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/share.png" alt=""> <span class="count">分享</span> </a> 
+          <div class="QRcode active" id="tool-QRcode"> 
+           <div class="share-bg-box"> 
+            <div class="share-content"> 
+             <a id="copyPosterUrl" data-type="link" class="btn-share">复制链接</a> 
+            </div> 
+            <div class="share-content"> 
+             <a class="btn-share" data-type="qq">分享到 QQ</a> 
+            </div> 
+            <div class="share-content"> 
+             <a class="btn-share" data-type="weibo">分享到新浪微博</a> 
+            </div> 
+            <div class="share-code"> 
+             <div class="share-code-box" id="shareCode"></div> 
+             <div class="share-code-text"> 
+              <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/share/icon-wechat.png" alt="">扫一扫 
+             </div> 
+            </div> 
+           </div> 
+          </div> </li> 
+         <li class="tool-item tool-item-size tool-active is-more" id="is-more"> <a class="tool-item-href"> <img class="isdefault" style="margin-right:0px;display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/more.png" alt=""> <span class="count"></span> </a> 
+          <div class="more-opt-box"> 
+           <div class="mini-box"> 
+            <a class="tool-item-href" id="toolReportBtnHide"> <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png" alt=""> <span class="count">举报</span> </a> 
+           </div> 
+           <div class="normal-box"> 
+            <a class="tool-item-href" id="toolReportBtnHideNormal"> <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png" alt=""> <span class="count">举报</span> </a> 
+           </div> 
+          </div> </li> 
+        </ul> 
+       </div> 
+       <div class="toolbox-right"> 
+       </div> 
+      </div> 
+     </div>   
+     <a id="commentBox" name="commentBox"></a> 
+     <div id="pcCommentBox" class="comment-box comment-box-new2 login-comment-box-new" style="display:none"> 
+      <div class="has-comment" style="display:block"> 
+       <div class="one-line-box"> 
+        <div class="has-comment-tit go-side-comment"> 
+         <span class="count">5</span>&nbsp;条评论 
+        </div> 
+        <div class="has-comment-con comment-operate-item"></div> 
+        <a class="has-comment-bt-right go-side-comment focus">写评论</a> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="first-recommend-box recommend-box recommend-highlight-default"> 
+      <div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_39471542/article/details/103715759" data-report-view="{&quot;ab&quot;:&quot;new&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6661.1&quot;,&quot;mod&quot;:&quot;popu_871&quot;,&quot;extra&quot;:&quot;{\&quot;highlightScore\&quot;:0.0,\&quot;utm_medium\&quot;:\&quot;distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-103715759-blog-119293629.235^v43^pc_blog_bottom_relevance_base9\&quot;,\&quot;dist_request_id\&quot;:\&quot;1743477493290_05223\&quot;}&quot;,&quot;dist_request_id&quot;:&quot;1743477493290_05223&quot;,&quot;ab_strategy&quot;:&quot;vipdefault&quot;,&quot;index&quot;:&quot;1&quot;,&quot;strategy&quot;:&quot;2~default~BlogCommendFromBaidu~Rate&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_39471542/article/details/103715759&quot;}"> 
+       <div class="content-box"> 
+        <div class="content-blog display-flex"> 
+         <div class="title-box"> 
+          <span class="type"> <img src="https://csdnimg.cn/release/blogv2/dist/components/img/blogType.png" alt=""> <span class="tip">博客</span> </span> 
+          <a href="https://blog.csdn.net/weixin_39471542/article/details/103715759" class="tit" target="_blank" data-report-click="{&quot;ab&quot;:&quot;new&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6661.1&quot;,&quot;mod&quot;:&quot;popu_871&quot;,&quot;extra&quot;:&quot;{\&quot;highlightScore\&quot;:0.0,\&quot;utm_medium\&quot;:\&quot;distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-103715759-blog-119293629.235^v43^pc_blog_bottom_relevance_base9\&quot;,\&quot;dist_request_id\&quot;:\&quot;1743477493290_05223\&quot;}&quot;,&quot;dist_request_id&quot;:&quot;1743477493290_05223&quot;,&quot;ab_strategy&quot;:&quot;vipdefault&quot;,&quot;index&quot;:&quot;1&quot;,&quot;strategy&quot;:&quot;2~default~BlogCommendFromBaidu~Rate&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_39471542/article/details/103715759&quot;}" data-report-query="spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1-103715759-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1-103715759-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9"> 
+           <div class="left ellipsis-online ellipsis-online-1">
+            几种
+            <em>锂电池</em>低功耗
+            <em>供电</em>
+            <em>电路</em>
+           </div> </a> 
+         </div> 
+         <div class="info-box display-flex"> 
+          <div class="info"> 
+           <a href="https://blog.csdn.net/weixin_39471542" target="_blank"><span class="blog-title">weixin_39471542的博客</span></a> 
+          </div> 
+          <div class="info display-flex"> 
+           <span class="info-block time">12-26</span> 
+           <span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt=""> 1万+ </span> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="desc-box"> 
+         <a href="https://blog.csdn.net/weixin_39471542/article/details/103715759" target="_blank" data-report-click="{&quot;ab&quot;:&quot;new&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6661.1&quot;,&quot;mod&quot;:&quot;popu_871&quot;,&quot;extra&quot;:&quot;{\&quot;highlightScore\&quot;:0.0,\&quot;utm_medium\&quot;:\&quot;distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-103715759-blog-119293629.235^v43^pc_blog_bottom_relevance_base9\&quot;,\&quot;dist_request_id\&quot;:\&quot;1743477493290_05223\&quot;}&quot;,&quot;dist_request_id&quot;:&quot;1743477493290_05223&quot;,&quot;ab_strategy&quot;:&quot;vipdefault&quot;,&quot;index&quot;:&quot;1&quot;,&quot;strategy&quot;:&quot;2~default~BlogCommendFromBaidu~Rate&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_39471542/article/details/103715759&quot;}" data-report-query="spm=1001.2101.3001.6661.1&amp;utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1-103715759-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1-103715759-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9"> 
+          <div class="desc ellipsis-online ellipsis-online-1">
+           一、
+           <em>锂电池</em>升压5V 1.TP4056升压5V TP4056 是一款完整的单节锂离子
+           <em>电池</em>采用恒定电流/恒定电压线性
+           <em>充电</em>器。其底部带有散热片的 SOP8/MSOP8 封装与较少的外部元件数目使得 TP4056 成为便携式应用的理想选择。TP4056 可以适合 USB 
+           <em>电源</em>和适配器
+           <em>电源</em>工作。 由于采用了内部 PMOSFET 架构，加上防倒
+           <em>充电</em>路，所以不需要外部隔离二极管。 热反馈可对 
+           <em>充电</em>电流进行自动调...
+          </div> </a> 
+        </div> 
+       </div> 
+      </div> 
+     </div>  
+     <div class="second-recommend-box recommend-box recommend-highlight-default"> 
+      <div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/105476631" data-report-view="{&quot;ab&quot;:&quot;new&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6650.1&quot;,&quot;mod&quot;:&quot;popu_387&quot;,&quot;extra&quot;:&quot;{\&quot;highlightScore\&quot;:0.0,\&quot;utm_medium\&quot;:\&quot;distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-1-105476631-blog-119293629.235^v43^pc_blog_bottom_relevance_base9\&quot;,\&quot;dist_request_id\&quot;:\&quot;1743477493290_05223\&quot;}&quot;,&quot;dist_request_id&quot;:&quot;1743477493290_05223&quot;,&quot;ab_strategy&quot;:&quot;vipdefault&quot;,&quot;index&quot;:&quot;1&quot;,&quot;strategy&quot;:&quot;2~default~BlogCommendFromBaidu~activity&quot;,&quot;dest&quot;:&quot;https://devpress.csdn.net/v1/article/detail/105476631&quot;}"> 
+       <div class="content-box"> 
+        <div class="content-blog display-flex"> 
+         <div class="title-box"> 
+          <span class="type"> <img src="https://csdnimg.cn/release/blogv2/dist/components/img/blogType.png" alt=""> <span class="tip">博客</span> </span> 
+          <a href="https://devpress.csdn.net/v1/article/detail/105476631" class="tit" target="_blank" data-report-click="{&quot;ab&quot;:&quot;new&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6650.1&quot;,&quot;mod&quot;:&quot;popu_387&quot;,&quot;extra&quot;:&quot;{\&quot;highlightScore\&quot;:0.0,\&quot;utm_medium\&quot;:\&quot;distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-1-105476631-blog-119293629.235^v43^pc_blog_bottom_relevance_base9\&quot;,\&quot;dist_request_id\&quot;:\&quot;1743477493290_05223\&quot;}&quot;,&quot;dist_request_id&quot;:&quot;1743477493290_05223&quot;,&quot;ab_strategy&quot;:&quot;vipdefault&quot;,&quot;index&quot;:&quot;1&quot;,&quot;strategy&quot;:&quot;2~default~BlogCommendFromBaidu~activity&quot;,&quot;dest&quot;:&quot;https://devpress.csdn.net/v1/article/detail/105476631&quot;}" data-report-query="spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-1-105476631-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-1-105476631-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9"> 
+           <div class="left ellipsis-online ellipsis-online-1">
+            #TP4056#--
+            <em>3.7</em>V
+            <em>锂电池</em>充放电
+            <em>电路</em>(实践日志篇)
+           </div> 
+           <div class="tag">
+            热门推荐
+           </div> </a> 
+         </div> 
+         <div class="info-box display-flex"> 
+          <div class="info"> 
+           <a href="https://blog.csdn.net/qq_36098477" target="_blank"><span class="blog-title">The Road of Engineer</span></a> 
+          </div> 
+          <div class="info display-flex"> 
+           <span class="info-block time">04-12</span> 
+           <span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt=""> 2万+ </span> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="desc-box"> 
+         <a href="https://devpress.csdn.net/v1/article/detail/105476631" target="_blank" data-report-click="{&quot;ab&quot;:&quot;new&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6650.1&quot;,&quot;mod&quot;:&quot;popu_387&quot;,&quot;extra&quot;:&quot;{\&quot;highlightScore\&quot;:0.0,\&quot;utm_medium\&quot;:\&quot;distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-1-105476631-blog-119293629.235^v43^pc_blog_bottom_relevance_base9\&quot;,\&quot;dist_request_id\&quot;:\&quot;1743477493290_05223\&quot;}&quot;,&quot;dist_request_id&quot;:&quot;1743477493290_05223&quot;,&quot;ab_strategy&quot;:&quot;vipdefault&quot;,&quot;index&quot;:&quot;1&quot;,&quot;strategy&quot;:&quot;2~default~BlogCommendFromBaidu~activity&quot;,&quot;dest&quot;:&quot;https://devpress.csdn.net/v1/article/detail/105476631&quot;}" data-report-query="spm=1001.2101.3001.6650.1&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-1-105476631-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-1-105476631-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9"> 
+          <div class="desc ellipsis-online ellipsis-online-1">
+           成就更好的自己 本篇为小型
+           <em>电源</em>的实践日志，内附各种
+           <em>充电</em>应用
+           <em>电路</em>，并开源TP4056应用
+           <em>电路</em>AD的
+           <em>原理图</em>和PCB； 先放一点
+           <em>锂电池</em>常识性的知识： 
+           <em>锂电池</em>是一类由锂金属或锂合金为负极材料、使用非水电解质溶液的
+           <em>电池</em>。 1912年锂金属
+           <em>电池</em>最早由Gilbert N. Lewis提出并研究。20世纪70年代时，M. S. Whittingham提出并开始研究锂离子
+           <em>电池</em>。由于锂金属的化学特...
+          </div> </a> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="recommend-box insert-baidu-box  recommend-highlight-default"> 
+      <div class="recommend-item-box no-index" style="display:none"></div> 
+      <div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_52531699/article/details/140396738" data-report-view="{&quot;ab&quot;:&quot;new&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6650.2&quot;,&quot;mod&quot;:&quot;popu_387&quot;,&quot;extra&quot;:&quot;{\&quot;highlightScore\&quot;:0.0,\&quot;utm_medium\&quot;:\&quot;distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-2-140396738-blog-119293629.235^v43^pc_blog_bottom_relevance_base9\&quot;,\&quot;dist_request_id\&quot;:\&quot;1743477493290_05223\&quot;}&quot;,&quot;dist_request_id&quot;:&quot;1743477493290_05223&quot;,&quot;ab_strategy&quot;:&quot;vipdefault&quot;,&quot;index&quot;:&quot;2&quot;,&quot;strategy&quot;:&quot;2~default~BlogCommendFromBaidu~Rate&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_52531699/article/details/140396738&quot;}"> 
+       <div class="content-box"> 
+        <div class="content-blog display-flex"> 
+         <div class="title-box"> 
+          <span class="type"> <img src="https://csdnimg.cn/release/blogv2/dist/components/img/blogType.png" alt=""> <span class="tip">博客</span> </span> 
+          <a href="https://blog.csdn.net/weixin_52531699/article/details/140396738" class="tit" target="_blank" data-report-click="{&quot;ab&quot;:&quot;new&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6650.2&quot;,&quot;mod&quot;:&quot;popu_387&quot;,&quot;extra&quot;:&quot;{\&quot;highlightScore\&quot;:0.0,\&quot;utm_medium\&quot;:\&quot;distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-2-140396738-blog-119293629.235^v43^pc_blog_bottom_relevance_base9\&quot;,\&quot;dist_request_id\&quot;:\&quot;1743477493290_05223\&quot;}&quot;,&quot;dist_request_id&quot;:&quot;1743477493290_05223&quot;,&quot;ab_strategy&quot;:&quot;vipdefault&quot;,&quot;index&quot;:&quot;2&quot;,&quot;strategy&quot;:&quot;2~default~BlogCommendFromBaidu~Rate&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_52531699/article/details/140396738&quot;}" data-report-query="spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-140396738-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-140396738-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9"> 
+           <div class="left ellipsis-online ellipsis-online-1">
+            <em>锂电池</em>
+            <em>充电</em>板
+            <em>电路</em>
+            <em>设计</em>
+           </div> 
+           <div class="tag">
+            最新发布
+           </div> </a> 
+         </div> 
+         <div class="info-box display-flex"> 
+          <div class="info"> 
+           <a href="https://blog.csdn.net/weixin_52531699" target="_blank"><span class="blog-title">weixin_52531699的博客</span></a> 
+          </div> 
+          <div class="info display-flex"> 
+           <span class="info-block time">08-07</span> 
+           <span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt=""> 4069 </span> 
+          </div> 
+         </div> 
+        </div> 
+        <div class="desc-box"> 
+         <a href="https://blog.csdn.net/weixin_52531699/article/details/140396738" target="_blank" data-report-click="{&quot;ab&quot;:&quot;new&quot;,&quot;spm&quot;:&quot;1001.2101.3001.6650.2&quot;,&quot;mod&quot;:&quot;popu_387&quot;,&quot;extra&quot;:&quot;{\&quot;highlightScore\&quot;:0.0,\&quot;utm_medium\&quot;:\&quot;distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-2-140396738-blog-119293629.235^v43^pc_blog_bottom_relevance_base9\&quot;,\&quot;dist_request_id\&quot;:\&quot;1743477493290_05223\&quot;}&quot;,&quot;dist_request_id&quot;:&quot;1743477493290_05223&quot;,&quot;ab_strategy&quot;:&quot;vipdefault&quot;,&quot;index&quot;:&quot;2&quot;,&quot;strategy&quot;:&quot;2~default~BlogCommendFromBaidu~Rate&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_52531699/article/details/140396738&quot;}" data-report-query="spm=1001.2101.3001.6650.2&amp;utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-140396738-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-2-140396738-blog-119293629.235%5Ev43%5Epc_blog_bottom_relevance_base9"> 
+          <div class="desc ellipsis-online ellipsis-online-1">
+           写这篇文章的目的主要是个人经验的总结，希望能给开发者们提供一种
+           <em>锂电池</em>
+           <em>充电</em>
+           <em>电路</em>以及
+           <em>电源</em>显示的
+           <em>电路</em>思路。接下来从以下几个方面讲述
+           <em>电路</em>。
+           <em>设计</em>这款
+           <em>电路</em>的初衷是想用一块硬币大小的
+           <em>锂电池</em>作为
+           <em>供电</em>
+           <em>电源</em>（3.5V-4.2V），降压供给3.3V
+           <em>电源</em>；升压供给5V
+           <em>电源</em>；拥有
+           <em>锂电池</em>
+           <em>充电</em>
+           <em>电路</em>可以通过TypeC接口
+           <em>充电</em>并且可以显示电量以及
+           <em>电池</em>是否充满。为此而
+           <em>设计</em>此
+           <em>电路</em>，为大家提供一种新思路。
+          </div> </a> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="blog-footer-bottom" style="margin-top:10px;"></div>   
+    </main> 
+    <aside class="blog_container_aside"> 
+     <div id="asideProfile" class="aside-box active"> 
+      <div class="profile-intro d-flex"> 
+       <div class="avatar-box d-flex justify-content-center flex-column"> 
+        <a href="https://blog.csdn.net/qq_45597060" target="_blank" data-report-click="{&quot;mod&quot;:&quot;popu_379&quot;,&quot;spm&quot;:&quot;3001.4121&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060&quot;,&quot;ab&quot;:&quot;new&quot;}"> <img src="https://profile-avatar.csdnimg.cn/637027fa08fc4a9bae6546b0a70a1ee5_qq_45597060.jpg!1" class="avatar_pic"> </a> 
+       </div> 
+       <div class="user-info d-flex flex-column profile-intro-name-box"> 
+        <div class="profile-intro-name-boxTop"> 
+         <a href="https://blog.csdn.net/qq_45597060" target="_blank" class="" id="uid" title="qq_45597060" data-report-click="{&quot;mod&quot;:&quot;popu_379&quot;,&quot;spm&quot;:&quot;3001.4122&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060&quot;,&quot;ab&quot;:&quot;new&quot;}"> <span class="name" username="qq_45597060">qq_45597060</span> </a> 
+        </div> 
+        <div class="profile-intro-name-boxFooter-new"> 
+         <p class="profile-intro-name-leve"> <span> 博客等级 </span> <img class="level" src="https://csdnimg.cn/identity/blog2.png"> </p> 
+         <span class="profile-intro-name-years" title="已加入 CSDN 6年">码龄6年</span> 
+        </div> 
+       </div> 
+      </div> 
+      <div class="profile-intro-rank-information"> 
+       <dl> 
+        <a href="https://blog.csdn.net/qq_45597060" data-report-click="{&quot;mod&quot;:&quot;1598321000_001&quot;,&quot;spm&quot;:&quot;3001.4310&quot;}" data-report-query="t=1"> 
+         <dd>
+          <span>1</span>
+         </dd> 
+         <dt>
+          原创
+         </dt> </a> 
+       </dl> 
+       <dl title="173"> 
+        <dd>
+         173
+        </dd> 
+        <dt>
+         点赞
+        </dt> 
+       </dl> 
+       <dl title="1126"> 
+        <dd>
+         1126
+        </dd> 
+        <dt>
+         收藏
+        </dt> 
+       </dl> 
+       <dl id="fanBox" title="45"> 
+        <dd>
+         <span id="fan">45</span>
+        </dd> 
+        <dt>
+         粉丝
+        </dt> 
+       </dl> 
+      </div> 
+      <div class="profile-intro-name-boxOpration"> 
+       <div class="opt-letter-watch-box"> 
+        <a class="personal-watch bt-button" id="btnAttent">关注</a> 
+       </div> 
+       <div class="opt-letter-watch-box"> 
+        <a rel="noopener" class="bt-button personal-letter" href="https://im.csdn.net/chat/qq_45597060" target="_blank">私信</a> 
+       </div> 
+      </div> 
+     </div> 
+     <div class="swiper-slide-box-remuneration"> 
+      <a data-report-click="{&quot;spm&quot;:&quot;3001.9728&quot;,&quot;extra&quot;:{&quot;index&quot;:&quot;0&quot;}}" data-report-view="{&quot;spm&quot;:&quot;3001.9728&quot;,&quot;extra&quot;:{&quot;index&quot;:&quot;0&quot;}}" href="https://ai.csdn.net/" target="_blank"> <img src="https://i-operation.csdnimg.cn/images/2dd892a9769b4cce9c086db94eab887f.png" alt=""> </a> 
+     </div> 
+     <div id="asideHotArticle" class="aside-box"> 
+      <h3 class="aside-title">热门文章</h3> 
+      <div class="aside-content"> 
+       <ul class="hotArticle-list"> 
+        <li> <a href="https://blog.csdn.net/qq_45597060/article/details/119293629" target="_blank" data-report-click="{&quot;mod&quot;:&quot;popu_541&quot;,&quot;spm&quot;:&quot;3001.4139&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/119293629&quot;,&quot;ab&quot;:&quot;new&quot;}"> 3.7V锂电池供电系统设计（含充电、保护、供电及电源切换电路器件选型和原理图） <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt=""> <span class="read">64465</span> </a> </li> 
+        <li> <a href="https://blog.csdn.net/qq_45597060/article/details/118637350" target="_blank" data-report-click="{&quot;mod&quot;:&quot;popu_541&quot;,&quot;spm&quot;:&quot;3001.4139&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/118637350&quot;,&quot;ab&quot;:&quot;new&quot;}"> MSP430程序报错Debug fail “Can’t” find a source file at “/tmp/Ti_MKLIBaXqLbT/SRC/copy_zero_init.c” <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt=""> <span class="read">2069</span> </a> </li> 
+       </ul> 
+      </div> 
+     </div> 
+     <div id="asideNewComments" class="aside-box"> 
+      <h3 class="aside-title">最新评论</h3> 
+      <div class="aside-content"> 
+       <ul class="newcomment-list"> 
+        <li> <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/qq_45597060/article/details/119293629#comments_35854865" data-report-click="{&quot;mod&quot;:&quot;popu_542&quot;,&quot;spm&quot;:&quot;3001.4231&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/119293629#comments_35854865&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;mod&quot;:&quot;popu_542&quot;,&quot;spm&quot;:&quot;3001.4231&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/119293629#comments_35854865&quot;,&quot;ab&quot;:&quot;new&quot;}">3.7V锂电池供电系统设计（含充电、保护、供电及电源切换电路器件选型和原理图）</a> <p class="comment ellipsis"> <a href="https://blog.csdn.net/yang_fish_man" class="user-name" target="_blank">不爱学习的小猫: </a> <span class="code-comments">牛哇，大佬一文包括了所有我需要的电路yyds<img src="https://g.csdnimg.cn/static/face/emoji/003.png" alt="表情包"></span> </p> </li> 
+        <li> <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/qq_45597060/article/details/119293629#comments_33947906" data-report-click="{&quot;mod&quot;:&quot;popu_542&quot;,&quot;spm&quot;:&quot;3001.4231&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/119293629#comments_33947906&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;mod&quot;:&quot;popu_542&quot;,&quot;spm&quot;:&quot;3001.4231&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/119293629#comments_33947906&quot;,&quot;ab&quot;:&quot;new&quot;}">3.7V锂电池供电系统设计（含充电、保护、供电及电源切换电路器件选型和原理图）</a> <p class="comment ellipsis"> <a href="https://blog.csdn.net/m0_74414947" class="user-name" target="_blank">m0_74414947: </a> <span class="code-comments">有没有平替TP4056发热太严重了</span> </p> </li> 
+        <li> <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/qq_45597060/article/details/119293629#comments_33575367" data-report-click="{&quot;mod&quot;:&quot;popu_542&quot;,&quot;spm&quot;:&quot;3001.4231&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/119293629#comments_33575367&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;mod&quot;:&quot;popu_542&quot;,&quot;spm&quot;:&quot;3001.4231&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/119293629#comments_33575367&quot;,&quot;ab&quot;:&quot;new&quot;}">3.7V锂电池供电系统设计（含充电、保护、供电及电源切换电路器件选型和原理图）</a> <p class="comment ellipsis"> <a href="https://blog.csdn.net/qq_45138815" class="user-name" target="_blank">学工科的皮皮志^_^: </a> <span class="code-comments">牛，涨知识了</span> </p> </li> 
+        <li> <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/qq_45597060/article/details/119293629#comments_31200217" data-report-click="{&quot;mod&quot;:&quot;popu_542&quot;,&quot;spm&quot;:&quot;3001.4231&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/119293629#comments_31200217&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;mod&quot;:&quot;popu_542&quot;,&quot;spm&quot;:&quot;3001.4231&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/119293629#comments_31200217&quot;,&quot;ab&quot;:&quot;new&quot;}">3.7V锂电池供电系统设计（含充电、保护、供电及电源切换电路器件选型和原理图）</a> <p class="comment ellipsis"> <a href="https://blog.csdn.net/qq_45776311" class="user-name" target="_blank">R301别走！！: </a> <span class="code-comments">升压到5V后，最大输出电流是多少？</span> </p> </li> 
+        <li> <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/qq_45597060/article/details/118637350#comments_29415258" data-report-click="{&quot;mod&quot;:&quot;popu_542&quot;,&quot;spm&quot;:&quot;3001.4231&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/118637350#comments_29415258&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;mod&quot;:&quot;popu_542&quot;,&quot;spm&quot;:&quot;3001.4231&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/118637350#comments_29415258&quot;,&quot;ab&quot;:&quot;new&quot;}">MSP430程序报错Debug fail “Can’t” find a source file at “/tmp/Ti_MKLIBaXqLbT/SRC/copy_zero_init.c”</a> <p class="comment ellipsis"> <a href="https://blog.csdn.net/qq_62421832" class="user-name" target="_blank">文煜131: </a> <span class="code-comments">我是这样的$$TOOL_BEGIN $$VERSION "3" $$DEP_BEGIN $$FILEPATH "C:\\Users\\</span> </p> </li> 
+       </ul> 
+      </div> 
+     </div> 
+     <div id="asideHotArticle" class="aside-box"> 
+      <h3 class="aside-title">大家在看</h3> 
+      <div class="aside-content"> 
+       <ul class="hotArticle-list"> 
+        <li> <a href="https://blog.csdn.net/chunhui886/article/details/146592500" target="_blank" data-report-click="{&quot;spm&quot;:&quot;3001.10093&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/chunhui886/article/details/146592500&quot;,&quot;strategy&quot;:&quot;202_1052723-2635034_RCMD&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;spm&quot;:&quot;3001.10093&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/chunhui886/article/details/146592500&quot;,&quot;strategy&quot;:&quot;202_1052723-2635034_RCMD&quot;,&quot;ab&quot;:&quot;new&quot;}"> 220V 转 12V，应用于智能电表， 小家电控制，照明设备AC-DC 非隔离开关电源WD5208 <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt=""> <span class="read">165</span> </a> </li> 
+        <li> <a href="https://blog.csdn.net/matrixlzp/article/details/146900840" target="_blank" data-report-click="{&quot;spm&quot;:&quot;3001.10093&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/matrixlzp/article/details/146900840&quot;,&quot;strategy&quot;:&quot;202_1052723-2635190_RCMD&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;spm&quot;:&quot;3001.10093&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/matrixlzp/article/details/146900840&quot;,&quot;strategy&quot;:&quot;202_1052723-2635190_RCMD&quot;,&quot;ab&quot;:&quot;new&quot;}"> Nacos config 配置中心 快速开始 </a> </li> 
+        <li> <a href="https://blog.csdn.net/2501_91395586/article/details/146801097" target="_blank" data-report-click="{&quot;spm&quot;:&quot;3001.10093&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/2501_91395586/article/details/146801097&quot;,&quot;strategy&quot;:&quot;202_1052723-2635185_RCMD&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;spm&quot;:&quot;3001.10093&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/2501_91395586/article/details/146801097&quot;,&quot;strategy&quot;:&quot;202_1052723-2635185_RCMD&quot;,&quot;ab&quot;:&quot;new&quot;}"> 2A,5VIN,同步升压芯片,XZ2185 <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt=""> <span class="read">164</span> </a> </li> 
+        <li> <a href="https://blog.csdn.net/weixin_45674669/article/details/146903048" target="_blank" data-report-click="{&quot;spm&quot;:&quot;3001.10093&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_45674669/article/details/146903048&quot;,&quot;strategy&quot;:&quot;202_1052723-2634993_RCMD&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;spm&quot;:&quot;3001.10093&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_45674669/article/details/146903048&quot;,&quot;strategy&quot;:&quot;202_1052723-2634993_RCMD&quot;,&quot;ab&quot;:&quot;new&quot;}"> 【题解-Acwing】90. 64位整数乘法 </a> </li> 
+        <li> <a href="https://blog.csdn.net/LCY133/article/details/146904904" target="_blank" data-report-click="{&quot;spm&quot;:&quot;3001.10093&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/LCY133/article/details/146904904&quot;,&quot;strategy&quot;:&quot;202_1052723-2635242_RCMD&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;spm&quot;:&quot;3001.10093&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/LCY133/article/details/146904904&quot;,&quot;strategy&quot;:&quot;202_1052723-2635242_RCMD&quot;,&quot;ab&quot;:&quot;new&quot;}"> spring security的webSecurityConfig内配置多个configure是什么原因 </a> </li> 
+       </ul> 
+      </div> 
+     </div> 
+     <div id="asideArchive" class="aside-box" style=" width:300px;"> 
+      <h3 class="aside-title">最新文章</h3> 
+      <div class="aside-content"> 
+       <ul class="inf_list clearfix"> 
+        <li class="clearfix"> <a href="https://blog.csdn.net/qq_45597060/article/details/118637350" target="_blank" data-report-click="{&quot;mod&quot;:&quot;popu_382&quot;,&quot;spm&quot;:&quot;3001.4136&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/118637350&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;mod&quot;:&quot;popu_382&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/118637350&quot;,&quot;ab&quot;:&quot;new&quot;}">MSP430程序报错Debug fail “Can’t” find a source file at “/tmp/Ti_MKLIBaXqLbT/SRC/copy_zero_init.c”</a> </li> 
+       </ul> 
+       <div class="archive-bar"></div> 
+       <div class="archive-box"> 
+        <div class="archive-list-item">
+         <a href="https://blog.csdn.net/qq_45597060?type=blog&amp;year=2021&amp;month=08" target="_blank" data-report-click="{&quot;mod&quot;:&quot;popu_538&quot;,&quot;spm&quot;:&quot;3001.4138&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060?type=blog&amp;year=2021&amp;month=08&quot;}"><span class="year">2021年</span><span class="num">2篇</span></a>
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+     <!-- 详情页显示目录 --> 
+     <!--文章目录--> 
+     <div id="asidedirectory" class="aside-box"> 
+      <div class="groupfile" id="directory"> 
+       <h3 class="aside-title">目录</h3> 
+       <div class="align-items-stretch group_item"> 
+        <div class="pos-box"> 
+         <div class="scroll-box"> 
+          <div class="toc-box"></div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </aside>    
+   </div> 
+   <div class="recommend-right align-items-stretch clearfix" id="rightAside" data-type="recommend"> 
+    <aside class="recommend-right_aside"> 
+     <div class="rightside-fixed-hide"> 
+      <div class="recommend-column-box aside-box"> 
+       <h3 class="aside-title">相关专栏 </h3> 
+       <div class="aside-content"> 
+        <div class="recommend-column-itembox exp1"> 
+         <a href="https://blog.csdn.net/weixin_43199439/category_12768525.html" title="BMS&amp;MCU&amp;多域控方案设计" target="_blank" data-report-view="{&quot;spm&quot;:&quot;3001.10573&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_43199439/category_12768525.html&quot;,&quot;ab&quot;:&quot;exp1&quot;,&quot;extra&quot;:&quot;{\&quot;id\&quot;:\&quot;119293629\&quot;,\&quot;recommendCount\&quot;:\&quot;9\&quot;,\&quot;index\&quot;:\&quot;0\&quot;,\&quot;type\&quot;:\&quot;column\&quot;}&quot;}" data-report-click="{&quot;spm&quot;:&quot;3001.10573&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_43199439/category_12768525.html&quot;,&quot;ab&quot;:&quot;exp1&quot;,&quot;extra&quot;:&quot;{\&quot;id\&quot;:\&quot;119293629\&quot;,\&quot;recommendCount\&quot;:\&quot;9\&quot;,\&quot;index\&quot;:\&quot;0\&quot;,\&quot;type\&quot;:\&quot;column\&quot;}&quot;}"> 
+          <div class="info-box"> 
+           <div class="img-box"> 
+            <div class="column-img" style="background-image: url(https://i-blog.csdnimg.cn/direct/da7fc652d63c467aaad9ed60ede91e02.jpeg?x-oss-process=image/resize,m_fixed,h_224,w_224)" alt="BMS&amp;MCU&amp;多域控方案设计" srcset=""></div> 
+           </div> 
+           <div class="info"> 
+            <div class="title-box"> 
+             <p class="title">BMS&amp;MCU&amp;多域控方案设计</p> 
+             <p class="tag">专栏</p> 
+            </div> 
+            <p class="learn">6 人学习</p> 
+           </div> 
+          </div> <p class="desc" title="欢迎来到BMS（电池管理系统）专栏！在这里，我们将深入探讨BMS领域的核心内容，涵盖从BMS芯片选型到系统设计的全面解决方案。并介绍MCU方案和多域控等典型的方案">欢迎来到BMS（电池管理系统）专栏！在这里，我们将深入探讨BMS领域的核心内容，涵盖从BMS芯片选型到系统设计的全面解决方案。并介绍MCU方案和多域控等典型的方案</p> </a> 
+        </div> 
+        <div class="recommend-column-itembox exp1"> 
+         <a href="https://blog.csdn.net/weixin_44407238/category_12110815.html" title="从焊电路板到年薪40W+：嵌入式工程师11步通关秘籍" target="_blank" data-report-view="{&quot;spm&quot;:&quot;3001.10573&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_44407238/category_12110815.html&quot;,&quot;ab&quot;:&quot;exp1&quot;,&quot;extra&quot;:&quot;{\&quot;id\&quot;:\&quot;119293629\&quot;,\&quot;recommendCount\&quot;:\&quot;9\&quot;,\&quot;index\&quot;:\&quot;1\&quot;,\&quot;type\&quot;:\&quot;column\&quot;}&quot;}" data-report-click="{&quot;spm&quot;:&quot;3001.10573&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/weixin_44407238/category_12110815.html&quot;,&quot;ab&quot;:&quot;exp1&quot;,&quot;extra&quot;:&quot;{\&quot;id\&quot;:\&quot;119293629\&quot;,\&quot;recommendCount\&quot;:\&quot;9\&quot;,\&quot;index\&quot;:\&quot;1\&quot;,\&quot;type\&quot;:\&quot;column\&quot;}&quot;}"> 
+          <div class="info-box"> 
+           <div class="img-box"> 
+            <div class="column-img" style="background-image: url(https://i-blog.csdnimg.cn/direct/db9ee46ed63844c59a63efa57aa9402d.png?x-oss-process=image/resize,m_fixed,h_224,w_224)" alt="从焊电路板到年薪40W+：嵌入式工程师11步通关秘籍" srcset=""></div> 
+           </div> 
+           <div class="info"> 
+            <div class="title-box"> 
+             <p class="title">从焊电路板到年薪40W+：嵌入式工程师11步通关秘籍</p> 
+             <p class="tag">专栏</p> 
+            </div> 
+            <p class="learn">736 人学习</p> 
+           </div> 
+          </div> <p class="desc" title="“你是否：
+
+☑️ 啃完51单片机仍做不出完整项目
+
+☑️ 面对IoT+AI趋势不知如何升级技能树
+
+☑️ 在硬件选型/RTOS移植/低功耗设计上反复踩坑
+
+——这可能是缺失了【系统化工程思维训练】”">“你是否： ☑️ 啃完51单片机仍做不出完整项目 ☑️ 面对IoT+AI趋势不知如何升级技能树 ☑️ 在硬件选型/RTOS移植/低功耗设计上反复踩坑 ——这可能是缺失了【系统化工程思维训练】”</p> </a> 
+        </div> 
+        <div class="recommend-column-itembox exp1"> 
+         <a href="https://blog.csdn.net/xiaolong1126626497/category_10192120.html" title="智能家居与物联网项目实战" target="_blank" data-report-view="{&quot;spm&quot;:&quot;3001.10573&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/xiaolong1126626497/category_10192120.html&quot;,&quot;ab&quot;:&quot;exp1&quot;,&quot;extra&quot;:&quot;{\&quot;id\&quot;:\&quot;119293629\&quot;,\&quot;recommendCount\&quot;:\&quot;9\&quot;,\&quot;index\&quot;:\&quot;2\&quot;,\&quot;type\&quot;:\&quot;column\&quot;}&quot;}" data-report-click="{&quot;spm&quot;:&quot;3001.10573&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/xiaolong1126626497/category_10192120.html&quot;,&quot;ab&quot;:&quot;exp1&quot;,&quot;extra&quot;:&quot;{\&quot;id\&quot;:\&quot;119293629\&quot;,\&quot;recommendCount\&quot;:\&quot;9\&quot;,\&quot;index\&quot;:\&quot;2\&quot;,\&quot;type\&quot;:\&quot;column\&quot;}&quot;}"> 
+          <div class="info-box"> 
+           <div class="img-box"> 
+            <div class="column-img" style="background-image: url(https://i-blog.csdnimg.cn/direct/e2977240335641b7a4ff6c8fb1d7815d.jpeg?x-oss-process=image/resize,m_fixed,h_224,w_224)" alt="智能家居与物联网项目实战" srcset=""></div> 
+           </div> 
+           <div class="info"> 
+            <div class="title-box"> 
+             <p class="title">智能家居与物联网项目实战</p> 
+             <p class="tag">专栏</p> 
+            </div> 
+            <p class="learn">3434 人学习</p> 
+           </div> 
+          </div> <p class="desc" title="订阅专栏可以永久看本专栏里的全部文章。专栏包含基础教程、也包含项目设计教程，专栏项目文章不包含源码工程，只包含完整项目逻辑代码以及代码讲解；你可以学习单片机开发基础，也可以参考写开题、写论文、写报告；项目文章都写了完整的设计过程，开发思路，硬件选型等等。">订阅专栏可以永久看本专栏里的全部文章。专栏包含基础教程、也包含项目设计教程，专栏项目文章不包含源码工程，只包含完整项目逻辑代码以及代码讲解；你可以学习单片机开发基础，也可以参考写开题、写论文、写报告；项目文章都写了完整的设计过程，开发思路，硬件选型等等。</p> </a> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+     <div id="recommend-right"> 
+      <div class="flex-column aside-box groupfile" id="groupfile"> 
+       <div class="groupfile-div"> 
+        <h3 class="aside-title">目录</h3> 
+        <div class="align-items-stretch group_item"> 
+         <div class="pos-box"> 
+          <div class="scroll-box"> 
+           <div class="toc-box"></div> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+      <div id="asideArchive" class="aside-box" style=" width:300px;"> 
+       <h3 class="aside-title">最新文章</h3> 
+       <div class="aside-content"> 
+        <ul class="inf_list clearfix"> 
+         <li class="clearfix"> <a href="https://blog.csdn.net/qq_45597060/article/details/118637350" target="_blank" data-report-click="{&quot;mod&quot;:&quot;popu_382&quot;,&quot;spm&quot;:&quot;3001.4136&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/118637350&quot;,&quot;ab&quot;:&quot;new&quot;}" data-report-view="{&quot;mod&quot;:&quot;popu_382&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060/article/details/118637350&quot;,&quot;ab&quot;:&quot;new&quot;}">MSP430程序报错Debug fail “Can’t” find a source file at “/tmp/Ti_MKLIBaXqLbT/SRC/copy_zero_init.c”</a> </li> 
+        </ul> 
+        <div class="archive-bar"></div> 
+        <div class="archive-box"> 
+         <div class="archive-list-item">
+          <a href="https://blog.csdn.net/qq_45597060?type=blog&amp;year=2021&amp;month=08" target="_blank" data-report-click="{&quot;mod&quot;:&quot;popu_538&quot;,&quot;spm&quot;:&quot;3001.4138&quot;,&quot;ab&quot;:&quot;new&quot;,&quot;dest&quot;:&quot;https://blog.csdn.net/qq_45597060?type=blog&amp;year=2021&amp;month=08&quot;}"><span class="year">2021年</span><span class="num">2篇</span></a>
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </aside> 
+   </div> 
+   <div class="recommend-right1  align-items-stretch clearfix" id="rightAsideConcision" data-type="recommend"> 
+    <aside class="recommend-right_aside"> 
+     <div id="recommend-right-concision"> 
+      <div class="flex-column aside-box groupfile" id="groupfileConcision"> 
+       <div class="groupfile-div1"> 
+        <h3 class="aside-title">目录</h3> 
+        <div class="align-items-stretch group_item"> 
+         <div class="pos-box"> 
+          <div class="scroll-box"> 
+           <div class="toc-box"></div> 
+          </div> 
+         </div> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </aside> 
+   </div> 
+  </div> 
+  <div class="mask-dark"></div> 
+  <div class="skin-boxshadow"></div> 
+  <div class="directory-boxshadow"></div> 
+  <div class="comment-side-box-shadow comment-side-tit-close" id="commentSideBoxshadow"> 
+   <div class="comment-side-content"> 
+    <div class="comment-side-tit"> 
+     <div class="comment-side-tit-count">
+      评论&nbsp;
+      <span class="count">5</span>
+     </div> 
+     <img class="comment-side-tit-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/closeBt.png">
+    </div> 
+    <div id="pcCommentSideBox" class="comment-box comment-box-new2 " style="display:block"> 
+     <div class="comment-edit-box d-flex"> 
+      <div class="user-img"> 
+       <a href="https://blog.csdn.net/2401_84444578" target="_blank"> <img src="https://profile-avatar.csdnimg.cn/default.jpg!1"> </a> 
+      </div> 
+      <form id="commentform"> 
+       <textarea class="comment-content" name="comment_content" id="comment_content" placeholder="欢迎高质量的评论，低质的评论会被折叠" maxlength="1000"></textarea> 
+       <div class="comment-reward-box" style="background-image: url('https://img-home.csdnimg.cn/images/20230131025301.png');"> 
+        <a class="btn-remove-reward"></a> 
+        <div class="form-reward-box"> 
+         <div class="info">
+           成就一亿技术人! 
+         </div> 
+         <div class="price-info">
+           拼手气红包
+          <span class="price">6.0元</span> 
+         </div> 
+        </div> 
+       </div> 
+       <div class="comment-operate-box"> 
+        <div class="comment-operate-l"> 
+         <span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span> 
+        </div> 
+        <div class="comment-operate-c">
+          &nbsp; 
+        </div> 
+        <div class="comment-operate-r"> 
+         <div class="comment-operate-item comment-reward"> 
+          <img class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentReward.png" alt="红包"> 
+          <span class="comment-operate-tip">添加红包</span> 
+         </div> 
+         <div class="comment-operate-item comment-emoticon"> 
+          <img class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentEmotionIcon.png" alt="表情包"> 
+          <span class="comment-operate-tip">插入表情</span> 
+          <div class="comment-emoticon-box comment-operate-isshow"> 
+           <div class="comment-emoticon-img-box"></div> 
+          </div> 
+         </div> 
+         <div class="comment-operate-item comment-code"> 
+          <img class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentCodeIcon.png" alt="表情包"> 
+          <span class="comment-operate-tip">代码片</span> 
+          <div class="comment-code-box comment-operate-isshow"> 
+           <ul id="commentCode"> 
+            <li><a data-code="html">HTML/XML</a></li> 
+            <li><a data-code="objc">objective-c</a></li> 
+            <li><a data-code="ruby">Ruby</a></li> 
+            <li><a data-code="php">PHP</a></li> 
+            <li><a data-code="csharp">C</a></li> 
+            <li><a data-code="cpp">C++</a></li> 
+            <li><a data-code="javascript">JavaScript</a></li> 
+            <li><a data-code="python">Python</a></li> 
+            <li><a data-code="java">Java</a></li> 
+            <li><a data-code="css">CSS</a></li> 
+            <li><a data-code="sql">SQL</a></li> 
+            <li><a data-code="plain">其它</a></li> 
+           </ul> 
+          </div> 
+         </div> 
+         <div class="comment-operate-item"> 
+          <input type="hidden" id="comment_replyId" name="comment_replyId"> 
+          <input type="hidden" id="article_id" name="article_id" value="119293629"> 
+          <input type="hidden" id="comment_userId" name="comment_userId" value=""> 
+          <input type="hidden" id="commentId" name="commentId" value=""> 
+          <a data-report-click="{&quot;mod&quot;:&quot;1582594662_003&quot;,&quot;spm&quot;:&quot;1001.2101.3001.4227&quot;,&quot;ab&quot;:&quot;new&quot;}"> <input type="submit" class="btn-comment btn-comment-input" value="评论"> </a> 
+         </div> 
+        </div> 
+       </div> 
+      </form> 
+     </div> 
+     <div class="comment-list-container"> 
+      <div class="comment-list-box comment-operate-item"> 
+      </div> 
+      <div id="lookGoodComment" class="look-good-comment side-look-comment"> 
+       <a class="look-more-comment">查看更多评论<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowDownWhite.png" alt=""></a> 
+      </div> 
+      <div id="lookFlodComment" class="look-flod-comment"> 
+       <span class="count"></span>&nbsp;条评论被折叠&nbsp;
+       <a class="look-more-flodcomment">查看</a> 
+      </div> 
+      <div class="opt-box text-center"> 
+       <div class="btn btn-sm btn-link-blue" id="btnMoreComment"></div> 
+      </div> 
+     </div> 
+    </div> 
+    <div id="pcFlodCommentSideBox" class="pc-flodcomment-sidebox"> 
+     <div class="comment-fold-tit">
+      <span id="lookUnFlodComment" class="back"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowLeftWhite.png" alt=""></span>被折叠的&nbsp;
+      <span class="count"></span>&nbsp;条评论 
+      <a href="https://blogdev.blog.csdn.net/article/details/122245662" class="tip" target="_blank">为什么被折叠?</a> 
+      <a href="https://bbs.csdn.net/forums/FreeZone" class="park" target="_blank"> <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/iconPark.png">到【灌水乐园】发言</a> 
+     </div> 
+     <div class="comment-fold-content"></div> 
+     <div id="lookBadComment" class="look-bad-comment side-look-comment"> 
+      <a class="look-more-comment">查看更多评论<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowDownWhite.png" alt=""></a> 
+     </div> 
+    </div> 
+   </div> 
+   <div class="comment-rewarddialog-box"> 
+    <div class="form-box"> 
+     <div class="title-box">
+       添加红包 
+      <a class="btn-form-close"></a> 
+     </div> 
+     <form id="commentRewardForm"> 
+      <div class="ipt-box"> 
+       <label for="txtName">祝福语</label> 
+       <div class="ipt-btn-box"> 
+        <input type="text" name="name" id="txtName" autocomplete="off" maxlength="50"> 
+        <a class="btn-ipt btn-random"></a> 
+       </div> 
+       <p class="notice">请填写红包祝福语或标题</p> 
+      </div> 
+      <div class="ipt-box"> 
+       <label for="txtSendAmount">红包数量</label> 
+       <div class="ipt-txt-box"> 
+        <input type="text" name="sendAmount" maxlength="4" id="txtSendAmount" placeholder="请填写红包数量(最小10个)" autocomplete="off"> 
+        <span class="after-txt">个</span> 
+       </div> 
+       <p class="notice">红包个数最小为10个</p> 
+      </div> 
+      <div class="ipt-box"> 
+       <label for="txtMoney">红包总金额</label> 
+       <div class="ipt-txt-box error"> 
+        <input type="text" name="money" maxlength="5" id="txtMoney" placeholder="请填写总金额(最低5元)" autocomplete="off"> 
+        <span class="after-txt">元</span> 
+       </div> 
+       <p class="notice">红包金额最低5元</p> 
+      </div> 
+      <div class="balance-info-box"> 
+       <label>余额支付</label> 
+       <div class="balance-info">
+         当前余额
+        <span class="balance">3.43</span>元 
+        <a href="https://i.csdn.net/#/wallet/balance/recharge" class="link-charge" target="_blank">前往充值 &gt;</a> 
+       </div> 
+      </div> 
+      <div class="opt-box"> 
+       <div class="pay-info">
+         需支付：
+        <span class="price">10.00</span>元 
+       </div> 
+       <button type="button" class="ml-auto btn-cancel">取消</button> 
+       <button type="button" class="ml8 btn-submit" disabled="true">确定</button> 
+      </div> 
+     </form> 
+    </div> 
+   </div> 
+   <div class="rr-guide-box"> 
+    <div class="rr-first-box"> 
+     <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward02.png" alt=""> 
+     <button class="btn-guide-known next">下一步</button> 
+    </div> 
+    <div class="rr-second-box"> 
+     <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward03.png" alt=""> 
+     <button class="btn-guide-known known">知道了</button> 
+    </div> 
+   </div> 
+  </div> 
+  <div class="redEnvolope" id="redEnvolope"> 
+   <div class="env-box"> 
+    <div class="env-container"> 
+     <div class="pre-open" id="preOpen"> 
+      <div class="top"> 
+       <header> 
+        <img class="clearTpaErr" :src="redpacketAuthor.avatar" alt=""> 
+        <div class="author">
+         成就一亿技术人!
+        </div> 
+       </header> 
+       <div class="bot-icon"></div> 
+      </div> 
+      <footer> 
+       <div class="red-openbtn open-start"></div> 
+       <div class="tip">
+         领取后你会自动成为博主和红包主的粉丝 
+        <a class="rule" target="_blank">规则</a> 
+       </div> 
+      </footer> 
+     </div> 
+     <div class="opened" id="opened"> 
+      <div class="bot-icon"> 
+       <header> 
+        <a class="creatorUrl" href="" target="_blank"> <img class="clearTpaErr" src="https://profile-avatar.csdnimg.cn/default.jpg!2" alt=""> </a> 
+        <div class="author"> 
+         <div class="tt">
+          hope_wisdom
+         </div> 发出的红包 
+        </div> 
+       </header> 
+      </div> 
+      <div class="receive-box"> 
+       <header></header> 
+       <div class="receive-list"> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+    <div class="close-btn"></div> 
+   </div> 
+  </div> 
+  <div class="pay-code"> 
+   <div class="pay-money">
+    实付
+    <span class="pay-money-span" data-nowprice="" data-oldprice="">元</span>
+   </div> 
+   <div class="content-blance">
+    <a class="blance-bt" href="javascript:;">使用余额支付</a>
+   </div> 
+   <div class="content-code"> 
+    <div id="payCode" data-id=""> 
+     <div class="renovate"> 
+      <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-time-out.png"> 
+      <span>点击重新获取</span> 
+     </div> 
+    </div> 
+    <div class="pay-style">
+     <span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/weixin.png"></span>
+     <span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/zhifubao.png"></span>
+     <span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/jingdong.png"></span>
+     <span class="text">扫码支付</span>
+    </div> 
+   </div> 
+   <div class="bt-close"> 
+    <svg t="1567152543821" class="icon" viewbox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10924" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12"> 
+     <defs> 
+      <style type="text/css"></style> 
+     </defs> 
+     <path d="M512 438.378667L806.506667 143.893333a52.032 52.032 0 1 1 73.6 73.621334L585.621333 512l294.485334 294.485333a52.074667 52.074667 0 0 1-73.6 73.642667L512 585.621333 217.514667 880.128a52.053333 52.053333 0 1 1-73.621334-73.642667L438.378667 512 143.893333 217.514667a52.053333 52.053333 0 1 1 73.621334-73.621334L512 438.378667z" fill="" p-id="10925"></path> 
+    </svg> 
+   </div> 
+   <div class="pay-balance"> 
+    <input type="radio" class="pay-code-radio" data-type="details"> 
+    <span class="span">钱包余额</span> 
+    <span class="balance" style="color:#FC5531;font-size:14px;">0</span> 
+    <div class="pay-code-tile"> 
+     <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-help.png" alt=""> 
+     <div class="pay-code-content"> 
+      <div class="span"> 
+       <p class="title">抵扣说明：</p> 
+       <p> 1.余额是钱包充值的虚拟货币，按照1:1的比例进行支付金额的抵扣。<br> 2.余额无法直接购买下载，可以购买VIP、付费专栏及课程。</p> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+   <a class="pay-balance-con" href="https://i.csdn.net/#/wallet/balance/recharge" target="_blank"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/recharge.png" alt=""><span>余额充值</span></a> 
+  </div> 
+  <div style="display:none;"> 
+   <img src="" onerror="setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){var test=&quot;\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74&quot;}},3000);"> 
+  </div> 
+  <div class="keyword-dec-box" id="keywordDecBox"></div>       
+  <link rel="stylesheet" href="https://g.csdnimg.cn/lib/cboxEditor/1.1.6/embed-editor.min.css"> 
+  <link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-light.css">                  
+ </body>
+</html>
